@@ -1,0 +1,23 @@
+{
+	"name": "apic",
+	"version": "0.0.3",
+	"description": "to build simple API on serverless",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"deploy": "npm version patch -m 'Bump %s' && git push origin master && npm publish"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/FeFB/APIC.git"
+	},
+	"author": "Felipe Bertao",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/FeFB/APIC/issues"
+	},
+	"homepage": "https://github.com/FeFB/APIC#readme",
+	"dependencies": {
+		"rxjs": "^5.5.6"
+	}
+}
