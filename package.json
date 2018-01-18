@@ -1,6 +1,6 @@
 {
 	"name": "apic-serverless",
-	"version": "0.0.10",
+	"version": "0.0.11",
 	"description": "to build simple API on serverless",
 	"main": "index.js",
 	"scripts": {
