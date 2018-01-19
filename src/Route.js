@@ -13,8 +13,28 @@ class Route {
 		};
 	}
 
-	useTag(tag) {
-		this.tag = tag;
+	use(subRoutes) {
+		Object.keys(subRoutes).forEach((key) => {
+			// /user/employee
+			const methodsAndCallbacks = subRoutes[key];
+
+			Object.keys(methodsAndCallbacks).forEach((method) => {
+				const cb = methodsAndCallbacks[method];
+				switch (method) {
+					case 'post':
+						this.post(key, cb);
+						break;
+					case 'get':
+						this.get(key, cb);
+						break;
+					case 'put':
+						this.get(key, cb);
+						break;
+					default:
+						throw 'Method of subroutes not found';
+				}
+			});
+		});
 	}
 
 	mid(cb) {
@@ -25,7 +45,7 @@ class Route {
 		this.middleWare = cb;
 	}
 
-	run(req, res) {
+	run(req, res, valuesFromAuth = 'null') {
 		const { method, path } = req;
 		//Select the Map that holds de endPoints from the verb;
 		const routeMap = this.methods[method];
@@ -42,7 +62,7 @@ class Route {
 			return Observable.throw('endpoint not found');
 		}
 
-		return cb(req, res);
+		return cb(req, res, valuesFromAuth);
 	}
 
 	get(route, cb) {

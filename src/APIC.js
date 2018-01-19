@@ -41,6 +41,7 @@ class APIC {
 	 * helps to identify the routes. Usually the first name should be the tag
 	 * '/home/roomB/' - tag should be '/home'
 	 */
+
 	verifyTag() {
 		const { path } = this.req;
 
@@ -95,7 +96,9 @@ class APIC {
 		}
 
 		this.middleWare(this.req, this.res)
-			.mergeMap((value) => rte.run(this.req, this.res, value))
+			.mergeMap((value) => {
+				return rte.run(this.req, this.res, value);
+			})
 			.subscribe(
 				(msg) => this.sucessFn(this.req, this.res, msg),
 				(err) => this.errorFn(this.req, this.res, err)
