@@ -11,14 +11,14 @@ class APIC {
 	}
 
 	once() {
-		this.sucessFn = function(req, res, values) {
+		this.sucessFn = function(req, res, values = 'null') {
 			let { status, message } = values;
 			if (!status) status = 200;
 			if (!message) message = values;
 			res.status(status).send(message);
 		};
 
-		this.errorFn = function(req, res, values) {
+		this.errorFn = function(req, res, values = 'null') {
 			let { status, message } = values;
 			if (!status) status = 500;
 			if (!message) message = values;

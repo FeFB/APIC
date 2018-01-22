@@ -16,19 +16,24 @@ class Route {
 	use(subRoutes) {
 		Object.keys(subRoutes).forEach((key) => {
 			// /user/employee
+			console.log('key SubRoute: ' + key);
 			const methodsAndCallbacks = subRoutes[key];
 
 			Object.keys(methodsAndCallbacks).forEach((method) => {
 				const cb = methodsAndCallbacks[method];
+				console.log('methodo: ' + method);
+
 				switch (method) {
 					case 'post':
 						this.post(key, cb);
 						break;
 					case 'get':
+						console.log('Get');
+						console.log(cb);
 						this.get(key, cb);
 						break;
 					case 'put':
-						this.get(key, cb);
+						this.put(key, cb);
 						break;
 					default:
 						throw 'Method of subroutes not found';
