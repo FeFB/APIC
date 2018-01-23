@@ -7,7 +7,6 @@ class APIC {
 		this.method = req.method;
 		this.routes = {};
 		this.once();
-		this.verifyTag();
 	}
 
 	once() {
@@ -22,8 +21,16 @@ class APIC {
 			let { status, message } = values;
 			if (!status) status = 500;
 			if (!message) message = values;
-			res.status(status).send(values);
+			res.status(status).send(message);
 		};
+
+		const { path } = this.req;
+
+		if (!path) {
+			this.path = '/';
+			return;
+		}
+		this.path = '/' + path.split('/')[1]; // '/employee' <= employee
 	}
 
 	/**
@@ -36,20 +43,6 @@ class APIC {
 
 	onError(errFn) {
 		this.errorFn = errFn;
-	}
-	/**
-	 * helps to identify the routes. Usually the first name should be the tag
-	 * '/home/roomB/' - tag should be '/home'
-	 */
-
-	verifyTag() {
-		const { path } = this.req;
-
-		if (!path) {
-			this.path = '/';
-			return;
-		}
-		this.path = '/' + path.split('/')[1]; // '/employee' <= employee
 	}
 
 	/**
