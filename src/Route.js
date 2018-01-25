@@ -5,11 +5,13 @@ class Route {
 		this.getR = new Map();
 		this.postR = new Map();
 		this.putR = new Map();
+		this.deleteR = new Map();
 
 		this.methods = {
 			GET: this.getR,
 			POST: this.postR,
-			PUT: this.putR
+			PUT: this.putR,
+			DELETE: this.deleteR
 		};
 	}
 
@@ -30,6 +32,9 @@ class Route {
 						break;
 					case 'put':
 						this.put(key, cb);
+						break;
+					case 'delete':
+						this.delete(key, cb);
 						break;
 					default:
 						throw 'Method of subroutes not found';
@@ -55,6 +60,8 @@ class Route {
 		if (!routeMap) {
 			return Observable.throw('method not found');
 		}
+
+		//must get the middleWare
 		//Get the Callback for that endpoint
 		const cb = routeMap.get(path);
 
@@ -79,6 +86,11 @@ class Route {
 	put(route, cb) {
 		this.check(route, cb);
 		this.putR.set(route, cb);
+	}
+
+	delete(route, cb) {
+		this.check(route, cb);
+		this.deleteR.set(route, cb);
 	}
 
 	check(route, cb) {
