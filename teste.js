@@ -5,37 +5,31 @@ const roles = {
 	managements: {
 		//idAdm
 		'23213aswew': {
-			rules: {
-				condominium: {
-					get: true,
-				},
+			condominium: {
+				get: true,
 			},
 		},
 		'23213asw3w': {
-			rules: {
-				condominium: {
-					create: true,
-				},
+			condominium: {
+				create: true,
 			},
 		},
 	},
 	unit: {
 		'212113': {
-			rules: {
-				calls: {
-					create: true,
-				},
+			calls: {
+				create: true,
 			},
 		},
 	},
 };
 
-const acls = {
+/* const acls = {
 	//roles
 	public: {},
 	managements: {
 		get: function(req, res, id) {
-			return Observable.of('1234');
+			return Observable.of();
 		},
 
 		update: function(req, res, id) {
@@ -49,10 +43,15 @@ const acls = {
 	assignee: {},
 	unit: {},
 };
+ */
+
+//acl para condominio
+const acls = {
+	get: function(idCond) {
+		const data = {};
+	},
+};
 
 const acl = new Acl(acls, 'condominium');
 
-acl.run('get', roles).subscribe((value) => {
-	console.log('dentro do sucesso');
-	console.log(value);
-});
+acl.checkPermissions('get', roles);
